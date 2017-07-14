@@ -1,0 +1,19 @@
+machine:
+  node:
+    version: 8.1.2
+  environment:
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+    REDIS_URL: redis://127.0.0.1:6379
+
+  services:
+    - redis
+
+dependencies:
+  override:
+    - yarn
+  cache_directories:
+    - ~/.yarn
+
+test:
+  override:
+    - yarn ci

@@ -1,0 +1,27 @@
+{
+  "name": "botbuilder-redis-storage",
+  "version": "1.0.0",
+  "description": "Redis storage for Microsoft BotBuilder",
+  "main": "index.js",
+  "repository": "https://github.com/bilby91/botbuilder-redis-storage",
+  "author": "Martin Fernandez <fmartin91@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest --forceExit --runInBand",
+    "lint": "standard lib/**.js",
+    "lint:fix": "standard lib/**.js --fix",
+    "ci": "yarn lint && yarn test"
+  },
+  "devDependencies": {
+    "redis": "^2.7.1",
+    "jest": "^20.0.4",
+    "standard": "^10.0.2"
+  },
+  "keywords": [
+    "bot",
+    "node",
+    "botframework",
+    "botbuilder",
+    "redis"
+  ]
+}
