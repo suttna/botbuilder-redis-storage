@@ -1,4 +1,4 @@
-# botbuilder-redis-storage
+# botbuilder-redis-storage [![npm version](https://badge.fury.io/js/botbuilder-redis-storage.svg)](https://badge.fury.io/js/botbuilder-redis-storage) [![CircleCI](https://circleci.com/gh/suttna/botbuilder-redis-storage.svg?style=svg)](https://circleci.com/gh/suttna/botbuilder-redis-storage)
 
 Redis storage adapter for Microsoft BotBuilder. This class implements the `IBotStorage` interface.
 
