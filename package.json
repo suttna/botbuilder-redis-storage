@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Redis storage for Microsoft BotBuilder",
   "main": "index.js",
-  "repository": "https://github.com/bilby91/botbuilder-redis-storage",
+  "repository": "https://github.com/suttna/botbuilder-redis-storage",
   "author": "Martin Fernandez <fmartin91@gmail.com>",
   "license": "MIT",
   "scripts": {
