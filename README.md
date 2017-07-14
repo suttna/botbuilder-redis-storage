@@ -41,5 +41,5 @@ yarn test
 
 ## Contact
 
-- Martín Ferández <martin@suttna,com>
-- Santiago Doldán <santiago@suttna,com>
+- Martín Ferández <martin@suttna.com>
+- Santiago Doldán <santiago@suttna.com>
