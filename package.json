@@ -2,20 +2,38 @@
   "name": "botbuilder-redis-storage",
   "version": "1.0.2",
   "description": "Redis storage for Microsoft BotBuilder",
-  "main": "index.js",
+  "main": "lib/index.js",
   "repository": "https://github.com/suttna/botbuilder-redis-storage",
   "author": "Martin Fernandez <fmartin91@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "build": "tsc",
+    "prepublish": "yarn build",
     "test": "jest --forceExit --runInBand",
-    "lint": "standard lib/**.js",
-    "lint:fix": "standard lib/**.js --fix",
+    "lint": "tslint 'src/**/*.ts' '__tests__/**/*.ts'",
+    "lint:fix": "tslint 'src/**/*.ts' '__tests__/**/*.ts' --fix",
     "ci": "yarn lint && yarn test"
   },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ]
+  },
   "devDependencies": {
+    "@types/jest": "^20.0.6",
+    "@types/redis": "^2.6.0",
     "jest": "^20.0.4",
-    "redis": "^2.7.1",
-    "standard": "^10.0.2"
+    "standard": "^10.0.2",
+    "ts-jest": "^20.0.10",
+    "tslint": "^5.6.0",
+    "typescript": "^2.4.2"
   },
   "keywords": [
     "bot",
@@ -23,5 +41,9 @@
     "botframework",
     "botbuilder",
     "redis"
-  ]
+  ],
+  "dependencies": {
+    "botbuilder": "^3.8.0",
+    "redis": "^2.6.0"
+  }
 }
