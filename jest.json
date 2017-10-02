@@ -1,0 +1,19 @@
+{
+  "verbose": true,
+  "forceExit": true,
+  "collectCoverage": true,
+  "coverageDirectory": "coverage",
+  "coverageReporters": ["html", "json"],
+  "transform": {
+    ".(ts)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+  },
+  "moduleFileExtensions": [
+    "ts",
+    "js",
+    "json"
+  ],
+  "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts)$",
+  "testPathIgnorePatterns": [
+    "/node_modules/"
+  ]
+}
