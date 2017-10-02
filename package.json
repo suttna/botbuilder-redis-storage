@@ -9,10 +9,11 @@
   "scripts": {
     "build": "tsc",
     "prepublish": "yarn build",
-    "test": "jest --forceExit --runInBand",
+    "test": "jest --config jest.json",
+    "posttest": "codecov -f coverage/*.json",
     "lint": "tslint 'src/**/*.ts' '__tests__/**/*.ts'",
     "lint:fix": "tslint 'src/**/*.ts' '__tests__/**/*.ts' --fix",
-    "ci": "yarn lint && yarn test"
+    "ci": "yarn lint && yarn build && yarn test"
   },
   "jest": {
     "transform": {
@@ -29,7 +30,8 @@
   "devDependencies": {
     "@types/jest": "^20.0.6",
     "@types/redis": "^2.6.0",
-    "jest": "^20.0.4",
+    "codecov": "^2.3.0",
+    "jest": "^21.2.1",
     "standard": "^10.0.2",
     "ts-jest": "^20.0.10",
     "tslint": "^5.6.0",
