@@ -30,7 +30,7 @@
   "devDependencies": {
     "@types/jest": "20.0.8",
     "@types/redis": "2.8.3",
-    "codecov": "2.3.1",
+    "codecov": "3.0.0",
     "jest": "21.2.1",
     "standard": "10.0.3",
     "ts-jest": "20.0.14",
