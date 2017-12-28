@@ -22,9 +22,9 @@
   version "8.0.20"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.20.tgz#65c7375255c24b184c215a5d0b63247c32f01c91"
 
-"@types/redis@2.8.3":
-  version "2.8.3"
-  resolved "https://registry.yarnpkg.com/@types/redis/-/redis-2.8.3.tgz#773bb60690c6f85eafa96d6c92cdee5f0695f97d"
+"@types/redis@2.8.4":
+  version "2.8.4"
+  resolved "https://registry.yarnpkg.com/@types/redis/-/redis-2.8.4.tgz#9f9e78e4dce90ad032aef23a32bceafaadb3dce6"
   dependencies:
     "@types/events" "*"
     "@types/node" "*"
