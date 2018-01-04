@@ -28,7 +28,7 @@
     ]
   },
   "devDependencies": {
-    "@types/jest": "21.1.10",
+    "@types/jest": "22.0.1",
     "@types/redis": "2.8.4",
     "codecov": "3.0.0",
     "jest": "22.0.4",
