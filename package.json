@@ -31,7 +31,7 @@
     "@types/jest": "22.0.1",
     "@types/redis": "2.8.4",
     "codecov": "3.0.0",
-    "jest": "22.0.5",
+    "jest": "22.0.6",
     "standard": "10.0.3",
     "ts-jest": "22.0.1",
     "tslint": "5.8.0",
