@@ -33,7 +33,7 @@
     "codecov": "3.0.0",
     "jest": "22.1.4",
     "standard": "10.0.3",
-    "ts-jest": "22.0.2",
+    "ts-jest": "22.0.3",
     "tslint": "5.9.1",
     "typescript": "2.7.1"
   },
