@@ -8,7 +8,16 @@ describe("RedisStorage", () => {
   let context
 
   beforeEach((done) => {
-    redisClient = createClient(process.env.REDIS_URL, { prefix: "test-bot-storage" })
+    let options = {
+        host: process.env.REDIS_HOST || 'localhost',
+        port: process.env.REDIS_PORT || '6379',
+        prefix: "test-bot-storage"
+    }
+    if(process.env.REDIS_AUTH) {
+      console.log('setting auth: '+process.env.REDIS_AUTH)
+        options.password = process.env.REDIS_AUTH
+    }
+    redisClient = createClient(options)
     storage     = new RedisStorage(redisClient)
     context     = { userId: "U1", conversationId: "C1", persistUserData: true, persistConversationData: true }
 

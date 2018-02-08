@@ -26,9 +26,15 @@ const userKey = (context: IBotStorageContext): string => {
 
 export class RedisStorage implements IBotStorage {
   public redis: RedisClient
+  public ttl: number
 
   constructor(client: RedisClient) {
     this.redis = client
+    this.ttl = null
+  }
+
+  public setConversationTTL(ttl: number) {
+    this.ttl = ttl
   }
 
   public getData(context: IBotStorageContext, callback: (err: Error, data: IBotStorageData) => void) {
@@ -113,9 +119,11 @@ export class RedisStorage implements IBotStorage {
 
         this.redis.set(entry.key, value, (err) => {
           if (err) { reject(err) }
-
           resolve()
         })
+        if(this.ttl && this.ttl > 0) {
+          this.redis.expire(entry.key, this.ttl)
+        }
       })
     })).then(() => {
       callback(null)
