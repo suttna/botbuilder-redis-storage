@@ -87,50 +87,72 @@ describe("RedisStorage", () => {
     })
 
     describe("when there is a TTL set", () => {
-        let newData
+      let newData
 
-        beforeEach(() => {
-            newData =  { userData: { a: "b" }, privateConversationData: { c: "d" }, conversationData: { e: "f" } }
-        })
+      beforeEach(() => {
+        newData = {userData: {a: "b"}, privateConversationData: {c: "d"}, conversationData: {e: "f"}}
+      })
 
-        it("sets the TTL correctly", (done) => {
-            storage.setConversationTTL(100)
-            storage.saveData(context, newData, (err) => {
-                if (err) { return }
+      it("sets the TTL correctly", (done) => {
+        storage.setConversationTTL(100)
+        storage.saveData(context, newData, (err) => {
+          if (err) {
+            return
+          }
 
-                storage.redis.ttl(
-                    `privateConversationData:user:${context.userId}:conversation:${context.conversationId}`,
-                    (err, data) => {
-                        expect(data).toEqual(100)
-                        done()
-                    })
+          storage.redis.ttl(
+            `privateConversationData:user:${context.userId}:conversation:${context.conversationId}`,
+            (err, data) => {
+              expect(data).toEqual(100)
+              done()
             })
         })
-        it("ignores invalid TTL", (done) => {
-            storage.setConversationTTL(0)
-            storage.saveData(context, newData, (err) => {
-                if (err) { return }
+      })
+      it("ignores invalid TTL", (done) => {
+        storage.setConversationTTL(0)
+        storage.saveData(context, newData, (err) => {
+          if (err) {
+            return
+          }
 
-                storage.redis.ttl(
-                    `privateConversationData:user:${context.userId}:conversation:${context.conversationId}`,
-                    (err, data) => {
-                        expect(data).toEqual(-1)
-                        done()
-                    })
+          storage.redis.ttl(
+            `privateConversationData:user:${context.userId}:conversation:${context.conversationId}`,
+            (err, data) => {
+              expect(data).toEqual(-1)
+              done()
             })
         })
-        it("ignores missing TTL", (done) => {
-            storage.saveData(context, newData, (err) => {
-                if (err) { return }
+      })
+      it("ignores missing TTL", (done) => {
+        storage.saveData(context, newData, (err) => {
+          if (err) {
+            return
+          }
 
-                storage.redis.ttl(
-                    `privateConversationData:user:${context.userId}:conversation:${context.conversationId}`,
-                    (err, data) => {
-                        expect(data).toEqual(-1)
-                        done()
-                    })
+          storage.redis.ttl(
+            `privateConversationData:user:${context.userId}:conversation:${context.conversationId}`,
+            (err, data) => {
+              expect(data).toEqual(-1)
+              done()
             })
         })
+      })
+      it("data expires", (done) => {
+        storage.setConversationTTL(1) // 1s expire
+        storage.saveData(context, newData, (err) => {
+          if (err) {
+            return
+          }
+          setTimeout(() => {
+            storage.redis.get(
+              `privateConversationData:user:${context.userId}:conversation:${context.conversationId}`,
+              (err, data) => {
+                expect(data).toEqual(null)
+                done()
+              })
+          }, 2000) // 2s delay to let it expire
+        })
+      })
     })
   })
 })
