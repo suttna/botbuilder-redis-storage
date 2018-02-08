@@ -14,7 +14,6 @@ describe("RedisStorage", () => {
         prefix: "test-bot-storage"
     }
     if(process.env.REDIS_AUTH) {
-      console.log('setting auth: '+process.env.REDIS_AUTH)
         options.password = process.env.REDIS_AUTH
     }
     redisClient = createClient(options)
@@ -81,5 +80,28 @@ describe("RedisStorage", () => {
         })
       })
     })
+      describe("when there is a TTL set", () => {
+          let newData
+
+          beforeEach(() => {
+              newData =  { userData: { a: "b" }, privateConversationData: { c: "d" }, conversationData: { e: "f" } }
+          })
+
+          it("saves the data correctly with TTL", (done) => {
+              storage.setConversationTTL(10)
+              storage.saveData(context, newData, (err) => {
+                  if (err) { return }
+
+                  storage.getData(context, (error, data) => {
+                      expect(data).toEqual(newData)
+
+                      let ttl = storage.redis.ttl(`privateConversationData:user:${context.userId}:conversation:${context.conversationId}`)
+                      console.log('ttl: '+ttl)
+                      expect(ttl).to.be.equal(10)
+                      done()
+                  })
+              })
+          })
+      })
   })
 })
