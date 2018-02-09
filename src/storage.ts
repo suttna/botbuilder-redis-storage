@@ -30,7 +30,6 @@ export class RedisStorage implements IBotStorage {
 
   constructor(client: RedisClient) {
     this.redis = client
-    this.ttlInSeconds = null
   }
 
   public setConversationTTLInSeconds(ttl: number) {
@@ -119,8 +118,9 @@ export class RedisStorage implements IBotStorage {
 
         this.redis.set(entry.key, value, (err) => {
           if (err) { reject(err) }
+
           if (this.ttlInSeconds && this.ttlInSeconds > 0) {
-              this.redis.expire(entry.key, this.ttlInSeconds)
+            this.redis.expire(entry.key, this.ttlInSeconds)
           }
           resolve()
         })
