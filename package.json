@@ -13,7 +13,10 @@
     "posttest": "codecov -f coverage/*.json",
     "lint": "tslint 'src/**/*.ts' '__tests__/**/*.ts'",
     "lint:fix": "tslint 'src/**/*.ts' '__tests__/**/*.ts' --fix",
-    "ci": "yarn lint && yarn build && yarn test"
+    "ci": "yarn lint && yarn build && yarn test",
+    "prepare": "yarn build",
+    "preversion": "yarn test",
+    "changelog": "bundle exec github_changelog_generator"
   },
   "jest": {
     "transform": {
