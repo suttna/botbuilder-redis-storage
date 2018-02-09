@@ -32,6 +32,16 @@ var bot = new builder.UniversalBot(connector)
 bot.set('storage', storage)
 ```
 
+### TTL for conversations
+
+You can assign a life time for conversations. When enabling this feature, conversations that take longer
+than the give TTL will be deleted automatically. Be aware that future interactions with the bot after
+starting the conversation won't change the TTL of the conversation. Use this feature with caution.
+
+```javascript
+storage.setConversationTTLInSeconds(30 * 60) // 30 minutes
+```
+
 ## Test
 
 To run the tests:
