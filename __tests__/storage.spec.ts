@@ -3,7 +3,7 @@ import { createClient } from "redis"
 import { RedisStorage } from "../src/storage"
 
 // 10s timeout to test expired TTL
-jest.setTimeout(10000)
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000
 
 describe("RedisStorage", () => {
   let redisClient
@@ -11,13 +11,11 @@ describe("RedisStorage", () => {
   let context
 
   beforeEach((done) => {
-    let options = {
-      host: process.env.REDIS_HOST || 'localhost',
-      port: process.env.REDIS_PORT || '6379',
-      prefix: "test-bot-storage:"
-    }
-    if (process.env.REDIS_AUTH) {
-      options.password = process.env.REDIS_AUTH
+    const options = {
+      host: process.env.REDIS_HOST || "localhost",
+      port: Number(process.env.REDIS_PORT) || 6379,
+      prefix: "test-bot-storage:",
+      password: process.env.REDIS_AUTH,
     }
 
     redisClient = createClient(options)
@@ -96,11 +94,8 @@ describe("RedisStorage", () => {
 
       it("sets the TTL correctly", (done) => {
         storage.setConversationTTLInSeconds(100)
-        storage.saveData(context, newData, (err) => {
-          if (err) {
-            return
-          }
 
+        storage.saveData(context, newData, () => {
           storage.redis.ttl(
             `privateConversationData:user:${context.userId}:conversation:${context.conversationId}`,
             (err, data) => {
@@ -109,13 +104,11 @@ describe("RedisStorage", () => {
             })
         })
       })
+
       it("ignores invalid TTL", (done) => {
         storage.setConversationTTLInSeconds(0)
-        storage.saveData(context, newData, (err) => {
-          if (err) {
-            return
-          }
 
+        storage.saveData(context, newData, () => {
           storage.redis.ttl(
             `privateConversationData:user:${context.userId}:conversation:${context.conversationId}`,
             (err, data) => {
@@ -124,12 +117,9 @@ describe("RedisStorage", () => {
             })
         })
       })
+
       it("ignores missing TTL", (done) => {
-        storage.saveData(context, newData, (err) => {
-          if (err) {
-            return
-          }
-
+        storage.saveData(context, newData, () => {
           storage.redis.ttl(
             `privateConversationData:user:${context.userId}:conversation:${context.conversationId}`,
             (err, data) => {
@@ -138,12 +128,11 @@ describe("RedisStorage", () => {
             })
         })
       })
-      it("the data must expired after TTL has passed", (done) => {
+
+      it("expires the data after TTL has passed ", (done) => {
         storage.setConversationTTLInSeconds(1) // 1s expire
-        storage.saveData(context, newData, (err) => {
-          if (err) {
-            return
-          }
+
+        storage.saveData(context, newData, () => {
           setTimeout(() => {
             storage.redis.get(
               `privateConversationData:user:${context.userId}:conversation:${context.conversationId}`,
