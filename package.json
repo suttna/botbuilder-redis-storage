@@ -1,6 +1,6 @@
 {
   "name": "botbuilder-redis-storage",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Redis storage for Microsoft BotBuilder",
   "main": "lib/index.js",
   "repository": "https://github.com/suttna/botbuilder-redis-storage",
