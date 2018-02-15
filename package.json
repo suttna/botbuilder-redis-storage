@@ -38,7 +38,7 @@
     "standard": "10.0.3",
     "ts-jest": "22.0.4",
     "tslint": "5.9.1",
-    "typescript": "2.7.1"
+    "typescript": "2.7.2"
   },
   "keywords": [
     "bot",
