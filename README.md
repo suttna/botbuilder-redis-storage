@@ -16,7 +16,7 @@ The storage depends on a redis client instance.
 
 ```javascript
 var redis = require('redis')
-var RedisStorage = require('botbuilder-redis-storage')
+var RedisStorage = require('botbuilder-redis-storage').RedisStorage
 var builder = require('botbuilder')
 
 // Initialize redis client
