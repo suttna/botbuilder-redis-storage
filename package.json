@@ -48,7 +48,7 @@
     "redis"
   ],
   "dependencies": {
-    "botbuilder": "^3.8.0",
+    "botbuilder": "^4.0.0",
     "redis": "^2.6.0"
   }
 }
