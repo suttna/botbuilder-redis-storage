@@ -25,6 +25,7 @@ const userKey = (context: IBotStorageContext): string => {
 }
 
 export class RedisStorage implements IBotStorage {
+
   public redis: RedisClient
   public ttlInSeconds: number
 
@@ -69,10 +70,8 @@ export class RedisStorage implements IBotStorage {
     Promise.all(operations.map((entry) => {
       return new Promise((resolve, reject) => {
         this.redis.get(entry.key, (err, obj) => {
-          if (err) { reject(err) }
-
+          if (err) { return reject(err) }
           data[entry.type] = JSON.parse(obj || "{}")
-
           resolve()
         })
       })
@@ -115,10 +114,8 @@ export class RedisStorage implements IBotStorage {
     Promise.all(operations.map((entry) => {
       return new Promise((resolve, reject) => {
         const value = JSON.stringify(entry.data)
-
         this.redis.set(entry.key, value, (err) => {
-          if (err) { reject(err) }
-
+          if (err) { return reject(err) }
           if (this.ttlInSeconds && this.ttlInSeconds > 0) {
             this.redis.expire(entry.key, this.ttlInSeconds)
           }
